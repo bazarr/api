@@ -17,7 +17,7 @@ export default new GraphQLObjectType({
     getUser: {
       type: user,
       args: {
-        email: {type: new GraphQLNonNull(GraphQLString)}
+        email: {type: new GraphQLNonNull(GraphQLString)},
       },
       resolve: getUser,
     },

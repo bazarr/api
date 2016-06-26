@@ -1,4 +1,4 @@
-export default function(sequelize, DataTypes) {
+export default function (sequelize, DataTypes) {
   return sequelize.define('users', {
     id: {
       type: DataTypes.UUIDV4,
@@ -22,4 +22,4 @@ export default function(sequelize, DataTypes) {
   }, {
     tableName: 'users',
   });
-};
+}

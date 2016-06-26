@@ -1,4 +1,4 @@
-export default function(sequelize, DataTypes) {
+export default function (sequelize, DataTypes) {
   return sequelize.define('posts', {
     id: {
       type: DataTypes.UUIDV4,
@@ -32,6 +32,6 @@ export default function(sequelize, DataTypes) {
       field: 'updated_at',
     },
   }, {
-    tableName: 'posts'
+    tableName: 'posts',
   });
-};
+}
