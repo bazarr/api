@@ -3,6 +3,7 @@
   "parser": "babel-eslint",
   "rules": {
     "no-console": "off",
+    "import/no-unresolved": "off",
     "object-curly-spacing": ["error", "never"]
   }
 }

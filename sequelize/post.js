@@ -5,9 +5,10 @@ export default function (sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true,
     },
-    user_id: {
+    userId: {
       type: DataTypes.UUIDV4,
       allowNull: false,
+      field: 'user_id',
       references: {
         model: 'users',
         key: 'id',
