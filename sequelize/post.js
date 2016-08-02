@@ -14,14 +14,31 @@ export default function (sequelize, DataTypes) {
         key: 'id',
       },
     },
+    // postType: {
+    //   type: DataTypes.INTEGER(1),
+    //   allowNull: false,
+    //   field: 'post_type',
+    // },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // price: {
+    //   type: DataTypes.INTEGER(6).UNSIGNED,
+    //   allowNull: true,
+    // },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    // category: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
+    // condition: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
