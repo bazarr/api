@@ -53,6 +53,7 @@ app.post('/posts', async (req, res) => {
       userId: req.body.userId,
       title: req.body.title,
       description: req.body.description,
+      image: req.body.image || null
     });
 
     return res.json(post.get({plain: true}));
@@ -66,8 +67,7 @@ app.get('/search', async (req, res) => {
   // If it's an empty search, we might want to show most popular newest ads down the line
   try {
     let result = await Post.findAll({
-        order: "created_at DESC",
-        limit: 3,
+        order: "created_at DESC"
       });
       result = result.map((result) => result.get({plain: true}));
 

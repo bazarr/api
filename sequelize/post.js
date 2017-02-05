@@ -48,8 +48,11 @@ export default function (sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
       field: 'updated_at',
+    }, 
+    image: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
-  }, {
     tableName: 'posts',
   });
 }
