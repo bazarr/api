@@ -11,6 +11,34 @@ const PORT = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/email', async (req, res) => {
+  try{
+    var helper = require('sendgrid').mail;
+    var from_email = new helper.Email('manuel.sabu-melvettam@horizn.com');
+    var to_email = new helper.Email('tasti@zakarie.com');
+    var subject = 'Bazarr Test Email';
+    var content = new helper.Content('text/plain', 'Hello World! and Welcome to the Bazarr test email');
+    var mail = new helper.Mail(from_email, subject, to_email, content);
+
+    var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+
+    sg.API(request, function(error, response) {
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+    });
+    return request.json({content: content});
+  } catch (err) {
+    return res.json({error: err});
+  }
+});
+
+
 app.get('/users', async (req, res) => {
   try {
     let users = await User.findAll();
