@@ -27,6 +27,7 @@ app.post('/users', async (req, res) => {
     const user = await User.create({
       id: uuid.v4(),
       email: req.body.email,
+      password: req.body.password
     });
 
     return res.json(user.get({plain: true}));

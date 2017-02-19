@@ -1,5 +1,6 @@
-export default function (sequelize, DataTypes) {
-  return sequelize.define('users', {
+var bcrypt = require('bcryptjs');
+module.exports = function (sequelize, DataTypes) {
+  var User = sequelize.define('users', {
     id: {
       type: DataTypes.UUIDV4,
       allowNull: false,
@@ -8,6 +9,28 @@ export default function (sequelize, DataTypes) {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    password_hash: {
+      type: DataTypes.STRING,
+    },
+    password: {
+      type: DataTypes.VIRTUAL,
+      set: function (val) {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(val, salt);
+        this.setDataValue('password', val); // Remember to set the data value, otherwise it won't be validated
+        this.setDataValue('password_hash', hash);
+      },
+      validate: {
+        isLongEnough: function (val) {
+          if (val.length < 6) {
+            throw new Error("Password must be atleast 6 characters long")
+          }
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -22,4 +45,6 @@ export default function (sequelize, DataTypes) {
   }, {
     tableName: 'users',
   });
+
+  return User;
 }

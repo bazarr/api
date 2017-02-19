@@ -6,6 +6,7 @@ SET search_path TO public;
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255),
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL
 );
