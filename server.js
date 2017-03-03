@@ -11,13 +11,14 @@ const PORT = process.env.PORT || 8000;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/email', async (req, res) => {
+app.post('/email', async (req, res) => {
   try{
     var helper = require('sendgrid').mail;
     var from_email = new helper.Email('manuel.sabu-melvettam@horizn.com');
-    var to_email = new helper.Email('tasti@zakarie.com');
-    var subject = 'Bazarr Test Email';
-    var content = new helper.Content('text/plain', 'Hello World! and Welcome to the Bazarr test email');
+    var to_email = new helper.Email('manuelntu@yahoo.com.sg');
+    var subject = 'Feedback on the site';
+
+    var content = new helper.Content('text/plain', req.body.feedback);
     var mail = new helper.Mail(from_email, subject, to_email, content);
 
     var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
@@ -34,6 +35,7 @@ app.get('/email', async (req, res) => {
     });
     return request.json({content: content});
   } catch (err) {
+    console.log(err)
     return res.json({error: err});
   }
 });
