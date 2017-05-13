@@ -12,9 +12,10 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/email', async (req, res) => {
+  console.log('I exist');
   try{
     var helper = require('sendgrid').mail;
-    var from_email = new helper.Email('manuel.sabu-melvettam@horizn.com');
+    var from_email = new helper.Email('manuelntu15@gmail.com');
     var to_email = new helper.Email('manuelntu@yahoo.com.sg');
     var subject = 'Feedback on the site';
 
