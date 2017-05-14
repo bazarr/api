@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS posts (
   description TEXT NOT NULL,
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
-  image TEXT
+  image TEXT,
+  condition INT
 );
 
 COMMIT;
