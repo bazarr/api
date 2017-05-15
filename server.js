@@ -84,6 +84,7 @@ app.post('/posts', async (req, res) => {
     const post = await Post.create({
       id: uuid.v4(),
       userId: req.body.userId,
+      price: req.body.price,
       title: req.body.title,
       description: req.body.description,
       image: req.body.image,
