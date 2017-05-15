@@ -14,6 +14,10 @@ export default function (sequelize, DataTypes) {
         key: 'id',
       },
     },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     // postType: {
     //   type: DataTypes.INTEGER(1),
     //   allowNull: false,
