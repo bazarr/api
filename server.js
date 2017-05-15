@@ -80,15 +80,14 @@ app.get('/posts', async (req, res) => {
 
 app.post('/posts', async (req, res) => {
   try {
-    console.log(req.body)
     const post = await Post.create({
       id: uuid.v4(),
       userId: req.body.userId,
-      price: req.body.price.trim(),
-      title: req.body.title.trim(),
-      description: req.body.description.trim(),
-      image: req.body.image.trim(),
-      condition: req.body.condition.trim()
+      price: req.body.price,
+      title: req.body.title,
+      description: req.body.description,
+      image: req.body.image,
+      condition: req.body.condition
     });
 
     return res.json(post.get({plain: true}));
