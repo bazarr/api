@@ -8,7 +8,7 @@ import {Post, User} from './sequelize/';
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'50mb'}));
 app.use(cors());
 
 app.post('/email', async (req, res) => {
