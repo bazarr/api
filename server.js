@@ -80,12 +80,14 @@ app.get('/posts', async (req, res) => {
 
 app.post('/posts', async (req, res) => {
   try {
+    console.log(req.body)
     const post = await Post.create({
       id: uuid.v4(),
       userId: req.body.userId,
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image || null
+      image: req.body.image,
+      condition: req.body.condition
     });
 
     return res.json(post.get({plain: true}));
@@ -113,6 +115,7 @@ app.get('/search/:title', async (req, res) => {
   // If there is actually a search term provided
   try {
       var searchTerm = req.params.title.replace(/-/g, "%") //When passed, spaces were replaced with '-'
+      searchTerm
       let result = await Post.findAll({
         where: { $or: {
           title: { ilike: '%' + searchTerm + '%'},
@@ -122,6 +125,7 @@ app.get('/search/:title', async (req, res) => {
         order: "CASE WHEN title ILIKE '" + searchTerm + "%' THEN 3 \
         WHEN title ILIKE '%" + searchTerm + "' THEN 1 \
         WHEN title ILIKE '%" + searchTerm + "%' THEN 2 \
+        WHEN description ILIKE '%" + searchTerm + "%' THEN 0 \
         WHEN description ILIKE '%" + searchTerm + "%' THEN 0 END DESC, title",
         
       });
