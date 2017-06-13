@@ -2,17 +2,18 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import uuid from 'node-uuid';
-
 import {Post, User} from './sequelize/';
+import aws from 'aws-sdk';
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+const S3_BUCKET = process.env.S3_BUCKET;
 
 app.use(bodyParser.json({limit:'50mb'}));
 app.use(cors());
 
 app.post('/email', async (req, res) => {
-  console.log('I exist');
   try{
     var helper = require('sendgrid').mail;
     var from_email = new helper.Email('manuelntu15@gmail.com');
@@ -41,6 +42,31 @@ app.post('/email', async (req, res) => {
   }
 });
 
+app.get('/sign-s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
+});
 
 app.get('/users', async (req, res) => {
   try {
